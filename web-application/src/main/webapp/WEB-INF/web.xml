@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <description>
+  	</description>
+    <display-name>RegistrationController</display-name>
+    <servlet-name>RegistrationController</servlet-name>
+    <servlet-class>com.arc.controllers.RegistrationController</servlet-class>
+  </servlet>
+  <servlet>
+    <description>
+  	</description>
+    <display-name>PersonalDetailsController</display-name>
+    <servlet-name>PersonalDetailsController</servlet-name>
+    <servlet-class>com.arc.controllers.PersonalDetailsController</servlet-class>
+  </servlet>
+  <servlet>
+    <description>
+  	</description>
+    <display-name>LogoutController</display-name>
+    <servlet-name>LogoutController</servlet-name>
+    <servlet-class>com.arc.controllers.LogoutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistrationController</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PersonalDetailsController</servlet-name>
+    <url-pattern>/PersonalDetailsController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutController</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  	<servlet>
+  		<servlet-name>spring-dispatcher</servlet-name>
+  		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>spring-dispatcher</servlet-name>
+  		<url-pattern>/</url-pattern>
+  	</servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>home.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
