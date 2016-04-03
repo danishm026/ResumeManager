@@ -1,22 +1,20 @@
 package com.arc.controllers;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LogoutController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+@Controller
+public class LogoutController {
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/home.jsp");
 		if(session != null) {
 			session.invalidate();
 		}
-		String root = getServletContext().getContextPath();
-		response.sendRedirect(root + "/home.jsp");
+		return modelAndView;
 	}
-
 }

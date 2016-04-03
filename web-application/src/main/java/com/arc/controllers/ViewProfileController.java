@@ -14,7 +14,7 @@ import com.arc.dto.academic.SSCDetails;
 public class ViewProfileController {
 	@RequestMapping(value="academic/SSCDetails")
 	public ModelAndView viewSSCDetails(HttpSession session) {
-		ModelAndView model = new ModelAndView("SSCDetails.jsp");
+		ModelAndView model = new ModelAndView("/profile/academic/SSCDetails.jsp");
 		String rollNumber = (String) session.getAttribute("rollNumber");
 		SSCDetails sscDetails = (SSCDetails) DB.get(SSCDetails.class, rollNumber);
 		model.addObject("rollNumber", rollNumber);

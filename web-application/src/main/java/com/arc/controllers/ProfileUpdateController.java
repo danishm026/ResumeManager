@@ -14,7 +14,7 @@ import com.arc.dto.academic.SSCDetails;
 public class ProfileUpdateController {
 	@RequestMapping(value="updateSSCDetails", method=RequestMethod.POST)
 	public ModelAndView updateSSCDetails(@ModelAttribute("SSCDetails") SSCDetails sscDetails) {
-		ModelAndView modelAndView = new ModelAndView("academic/SSCDetails");
+		ModelAndView modelAndView = new ModelAndView("redirect:/profile/academic/SSCDetails");
 		UpdateUserDetails.updateSSCdetails(sscDetails);
 		return modelAndView;
 	}

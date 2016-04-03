@@ -1,26 +1,24 @@
 package com.arc.controllers;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.arc.dao.DB;
 import com.arc.dto.PersonalDetails;
 
-public class PersonalDetailsController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+@Controller
+public class PersonalDetailsController {
+	@RequestMapping(value="/PersonalDetailsController")
+	public ModelAndView setPersonalDetails(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("profile/personalDetails.jsp");
+		System.out.println("In Personal");
 		String rollNumber = (String) session.getAttribute("rollNumber");
+		PersonalDetails personalDetails = (PersonalDetails) DB.get(PersonalDetails.class, rollNumber);
+		modelAndView.addObject("personalDetails", personalDetails);
 		
-		PersonalDetails personalDetails = null;
-		personalDetails = (PersonalDetails) DB.get(PersonalDetails.class, rollNumber);
-		session.setAttribute("personalDetails", personalDetails);
-		
-		String root = getServletContext().getContextPath();
-		response.sendRedirect(root + "/profile/personalDetails.jsp");
+		return modelAndView;
 	}
 }

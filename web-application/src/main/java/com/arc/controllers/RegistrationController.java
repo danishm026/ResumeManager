@@ -1,32 +1,35 @@
 package com.arc.controllers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.arc.business.registration.UserRegistration;
 import com.arc.dto.UserRegistrationDetails;
-import com.arc.util.hash.Hashes;
+import com.arc.util.propertyeditors.PasswordEditor;
 
-public class RegistrationController extends HttpServlet {
-	private static final long serialVersionUID = 1;
+@Controller
+public class RegistrationController {
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setDisallowedFields(new String [] {"confirmedPassword"});
+		binder.registerCustomEditor(String.class, "passwordHash", new PasswordEditor());
+	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String rollNumber = request.getParameter("rollNumber").trim().toUpperCase();
-		String email = request.getParameter("email").trim();
-		String passwordHash = Hashes.getSHA1(request.getParameter("password").trim().getBytes());
-		
-		UserRegistrationDetails user = new UserRegistrationDetails(rollNumber, email, passwordHash);
-		
-		boolean success = UserRegistration.registerUser(user);
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute UserRegistrationDetails userRegistrationDetails) {
+		ModelAndView modelAndView  = null;
+		boolean success = UserRegistration.registerUser(userRegistrationDetails);
 		if(success) {
-			response.sendRedirect("registration/registrationSuccess.jsp");
+			modelAndView = new ModelAndView("registration/registrationSuccess.jsp");
 		}
 		else {
-			response.sendRedirect("registration/registrationFailure.jsp");
+			modelAndView = new ModelAndView("registration/registrationFailure.jsp");
 		}
+		return modelAndView;
 	}
 }

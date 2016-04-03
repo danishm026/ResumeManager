@@ -22,11 +22,11 @@ public class LoginController {
 		
 		boolean success = UserLogin.login(rollNumber, passwordHash);
 		if(success) {
-			 model = new ModelAndView("/PersonalDetailsController");
+			 model = new ModelAndView("redirect:/PersonalDetailsController");
 			 session.setAttribute("rollNumber", rollNumber);
 		}
 		else {
-			model = new ModelAndView("/home.jsp");
+			model = new ModelAndView("redirect:/home.jsp");
 		}
 		return model;
 	}
